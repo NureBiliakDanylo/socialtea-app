@@ -8,4 +8,16 @@ router.get('/', async (req, res) => {
   res.json(result.recordset);
 });
 
+
+router.get('/by-country', async (req, res) => {
+  const pool = await connect();
+  const result = await pool.request().query(`
+    SELECT OriginCountry, COUNT(*) as teaCount
+    FROM TeaVarieties
+    GROUP BY OriginCountry
+  `);
+  res.json(result.recordset);
+});
+
 module.exports = router;
+
