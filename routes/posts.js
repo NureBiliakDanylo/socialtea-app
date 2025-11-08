@@ -68,13 +68,31 @@ router.post('/', async (req, res) => {
 
 
 
-    res.json({ message: 'Post created successfully' });
+        res.json({ message: 'Post created successfully' });
 
-  } catch (err) {
 
-    res.status(500).json({ error: err.message });
 
-  }
+      } catch (err) {
+
+
+
+        if (err.number === 50000) {
+
+
+
+          return res.status(400).json({ error: err.message.trim() });
+
+
+
+        }
+
+
+
+        res.status(500).json({ error: err.message });
+
+
+
+      }
 
 });
 
